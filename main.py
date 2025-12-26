@@ -48,7 +48,29 @@ class ModernWikipediaAI:
     def __init__(self):
         self.window = tk.Tk()
         self.window.title("🤖 Modern Wikipedia AI Assistant")
-        self.window.geometry("1400x850")
+        #self.window.geometry("1400x850")
+
+        # Адаптивная геометрия - окно занимает 90% экрана
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        # Вычисляем размеры окна (90% от экрана, но не меньше минимальных)
+        window_width = min(int(screen_width * 0.9), 1400)
+        window_height = min(int(screen_height * 0.85), 850)
+
+        # Позиционируем окно по центру
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+
+        self.window.geometry(f"{window_width}x{window_height}+{x}+{y}")
+
+        # Минимальный размер окна
+        self.window.minsize(1000, 600)
+
+        # Делаем окно масштабируемым
+        self.window.rowconfigure(0, weight=1)
+        self.window.columnconfigure(0, weight=1)
+
         self.window.configure(bg="#0a192f")
 
         # Создаем папку для данных, если её нет
